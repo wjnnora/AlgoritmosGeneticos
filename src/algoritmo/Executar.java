@@ -2,20 +2,13 @@
 package algoritmo;
 
 //Importes
-import Classe.Produto;
+import Classe.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Executar {
     
     public static void main(String []args){
-        
-        /*Produto p1 = new Produto("Geladeira Dako", 0.751, 999.90);
-        
-        System.out.println("Nome do Produto: " + p1.getNome());
-        System.out.println("Métros Cúbicos: " + p1.getEspaco());
-        System.out.println("Preço Produto: " + p1.getPreco());
-        */
         
         List<Produto> listaProdutos = new ArrayList<>();
         
@@ -34,12 +27,38 @@ public class Executar {
         listaProdutos.add(new Produto("Notebook Lenovo", 0.498, 1999.90));
         listaProdutos.add(new Produto("notebook Asus", 0.527, 3999.00));
         
-        for(Produto p: listaProdutos){
-            System.out.println("Nome: " + p.getNome());
-            System.out.println("Espaço que ocupa: " + p.getEspaco());
-            System.out.println("Preço: R$ " + p.getPreco());
-            System.out.println();
+        
+        List nome = new ArrayList<>();
+        List espaco = new ArrayList<>();
+        List valores = new ArrayList<>();
+        
+        for(Produto produto: listaProdutos){
+            nome.add(produto.getNome());
+            espaco.add(produto.getEspaco());
+            valores.add(produto.getPreco());
         }
+        
+        //Espacço disponível no caminhão
+        double limite  = 3;
+        
+        Individuo individuo1 = new Individuo(espaco, valores, limite);
+        
+        individuo1.avaliacao();
+        System.out.println("Individuo 1: " + individuo1.getCromossomo());
+        System.out.println("Espaco Total: " + individuo1.getEspacoUsado());
+        System.out.println("Valor total: R$ " + individuo1.getNotaAvaliacao());
+        
+        Individuo individuo2 = new Individuo(espaco, valores, limite);
+        
+        individuo2.avaliacao();
+        System.out.println("\nIndividuo 2: " + individuo2.getCromossomo());
+        System.out.println("Espaco Total: " + individuo2.getEspacoUsado());
+        System.out.println("Valor total: R$ " + individuo2.getNotaAvaliacao());
+        
+        individuo1.crossover(individuo2);
+        
+        individuo1.mutacao(0.01);
+        individuo2.mutacao(0.05);
     }
     
 }
