@@ -5,7 +5,7 @@ import java.util.List;
 import java.lang.Math;
 
 
-public class Individuo {
+public class Individuo implements Comparable<Individuo> {
     
     //Valores dos espacos ucupados no caminhao
     private List espacos = new ArrayList<>();
@@ -27,8 +27,8 @@ public class Individuo {
         this.valores = valores; 
         this.limiteEspaco = limiteEspaco;
         this.geracao = 0;
-        this.notaAvaliacao = 0;
-        this.espacoUsado = 0;
+//      this.notaAvaliacao = 0;
+//      this.espacoUsado = 0;
         
         for(int i = 0; i < this.espacos.size(); i++){
             if(Math.random() < 0.5){
@@ -37,7 +37,8 @@ public class Individuo {
             else {
                 this.cromossomo.add("1");
             }
-        }        
+        }             
+        avaliacao();
     }
     
     //Getters and Setters
@@ -150,4 +151,14 @@ public class Individuo {
         System.out.println("Depois da mutação: " + this.cromossomo);
         return this;
     }
+
+    @Override
+    public int compareTo(Individuo t) {
+        if(this.notaAvaliacao > t.notaAvaliacao)
+            return -1;
+        if(this.notaAvaliacao < t.notaAvaliacao)
+            return 1;
+        return 0;
+    }
+    
 }

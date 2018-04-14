@@ -41,24 +41,25 @@ public class Executar {
         //Espacço disponível no caminhão
         double limite  = 3;
         
-        Individuo individuo1 = new Individuo(espaco, valores, limite);
-        
-        individuo1.avaliacao();
-        System.out.println("Individuo 1: " + individuo1.getCromossomo());
-        System.out.println("Espaco Total: " + individuo1.getEspacoUsado());
-        System.out.println("Valor total: R$ " + individuo1.getNotaAvaliacao());
-        
-        Individuo individuo2 = new Individuo(espaco, valores, limite);
-        
-        individuo2.avaliacao();
-        System.out.println("\nIndividuo 2: " + individuo2.getCromossomo());
-        System.out.println("Espaco Total: " + individuo2.getEspacoUsado());
-        System.out.println("Valor total: R$ " + individuo2.getNotaAvaliacao());
-        
-        individuo1.crossover(individuo2);
-        
-        individuo1.mutacao(0.01);
-        individuo2.mutacao(0.05);
+        int tamanhoPopulacao = 1000000;
+        AlgoritmoGenetico ag = new AlgoritmoGenetico(tamanhoPopulacao);
+        ag.inicizalizaPopulacao(espaco, valores, limite);
+        //Ordena a população pela ordem da nota de avaliação
+        ag.ordenacaoPopulacao();
+        ag.melhorIndividuo(ag.getPopulacao().get(0));
+//        for(int i = 0; i < ag.getTamanhoPopulacao(); i++){
+//            System.out.println("Individuo: " + i);
+//            System.out.println("Espaços: " + ag.getPopulacao().get(i).getEspacos());
+//            System.out.println("Valores: " + ag.getPopulacao().get(i).getValores());
+//            System.out.println("Cromossomo: " + ag.getPopulacao().get(i).getCromossomo());
+//            System.out.println("Nota Avaliação: " + ag.getPopulacao().get(i).getNotaAvaliacao());
+//            System.out.println("Espaço Usado: " + ag.getPopulacao().get(i).getEspacoUsado());
+//            System.out.println();
+//        }
+        System.out.println("Melhor solução:");
+        System.out.println("Cromossomo: " + ag.getMelhorSolucao().getCromossomo());
+        System.out.println("Nota Avaliação: " + ag.getMelhorSolucao().getNotaAvaliacao());
+        System.out.println("Espaço utilizado: " + ag.getMelhorSolucao().getEspacoUsado());
     }
     
 }
